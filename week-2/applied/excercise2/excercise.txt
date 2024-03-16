@@ -1,0 +1,21 @@
+1. Reuseability and DRY principle
+
+By directly inheriting from the 'Athlete' and 'Worker'
+classes, the 'AthleteWorker' reuses code efficiently,
+this adheres to the DRY principle.
+
+
+
+2. Clear Hierarhical Relationship
+
+It clearly indicates that an 'AthleteWorker' is an
+'Athlete' and a 'Worker'. This makes the code easier
+to understand and reason about.
+
+
+
+3. Feature Richness
+
+The 'AthleteWorker' class functionality benefits from
+both 'Athlete' and 'Worker' without needing to duplicate
+their functionality.
