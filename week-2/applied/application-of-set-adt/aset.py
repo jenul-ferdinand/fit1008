@@ -80,17 +80,12 @@ class ASet(Set[T]):
         :complexity: O(n^2 + m^2) Where n is the self and m is other
         """
         
-        res = ASet(len(self) + len(other))
+        res = ASet(len(self.array) + len(other.array))
         
-        for i in range(len(self)):
-            
-            item1 = self.array[i]
-            res.add(item1)
-            
-        for j in range(len(other)):
-            
-            item2 = other.array[j]
-            res.add(item2)
+        for the_set in [self, other]:
+            for i in range(len(the_set)):
+                res.add(the_set.array[i])
+        return res
                 
 
     def __and__(self, other: Set[T]) -> Set[T]: 
@@ -104,7 +99,7 @@ class ASet(Set[T]):
         for i in range(len(self)):
             item = self.array[i]
             if item in other:
-                res.add(item)
+                res.add(self.array[i])
         return res
 
     def difference(self, other: ASet[T]) -> ASet[T]:
