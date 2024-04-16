@@ -87,19 +87,27 @@ class LinearProbeTable(Generic[T]):
     def __delitem__(self, key: str) -> T:
         """
         Delete the item from our hash table based on the key.
-        Note: You may need to update other methods to handle any deleted items.
-        :complexity: ?? assuming that N is number of elements in the table,
-                        and Comp and Hash are the complexity of hashing and comparison
-                        (typically linear in the size of keys)
+
+        :complexity: O(N) in the worst case, where N is the number of elements in the table,
+            due to linear probing through all slots in a full table scenario.
         :raises: KeyError if key is not in the table
         """
-        for _ in range(len(self.table)):
-            if self.table[pos] is not DeletedItem and self.table[pos][0] == key:
-                # Delete the item in the position
-                # TODO
-                break
-            elif self.table[pos] == None:
-                # Find an empty position, then stop.
-                break                
+        pos = self.hash(key, len(self.table))
+        start_pos = pos
+        
+        while self.table[pos] is not None:
+            if isinstance(self.table[pos], DeletedItem):
+                pos = (pos + 1) % len(self.table)
+                if pos == start_pos:
+                    break
+            
+            if self.table[pos][0] == key:
+                self.table[pos] = DeletedItem
+                self.count -= 1
+                return
 
-            pos += 1 % len(self.table)
+            pos = (pos + 1) % len(self.table)
+            if pos == start_pos:
+                break
+            
+        raise KeyError("Key not found: " + str(key))
