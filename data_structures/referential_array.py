@@ -21,6 +21,7 @@ from typing import TypeVar, Generic
 
 T = TypeVar('T')
 
+
 class ArrayR(Generic[T]):
     def __init__(self, length: int) -> None:
         """ Creates an array of references to objects of the given length
@@ -51,19 +52,3 @@ class ArrayR(Generic[T]):
         :pre: index in between 0 and length - self.array[] checks it
         """
         self.array[index] = value
-    
-    def index(self, item: T) -> int:
-        for index, arr_item in enumerate(self.array):
-            if arr_item == item:
-                return index
-        else:
-            raise ValueError("Value does not exist")
-    
-    def __str__(self) -> str:
-        ret_str = "["
-        for i, item in enumerate(self.array):
-            ret_str += str(item)
-            ret_str += ", "
-        
-        ret_str = ret_str[:-2] + "]"
-        return ret_str
